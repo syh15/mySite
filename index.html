@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECharts Pie and Bar</title>
+    <!-- 引入 echarts.min.js -->
+    <script src="https://cdn.staticfile.org/echarts/4.8.0/echarts.min.js"></script>
+</head>
+
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 1200px;height:600px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '商品销量',
+                left: "center",
+                textStyle: {
+                    fontSize: 30,
+                    color: "rgba(116, 10, 10, 1)",
+                    fontWeight: "bolder"
+                }
+            },
+            tooltip: {},
+            legend: {
+                left: '8%',
+                top: '10%'
+            },
+            //右上角的功能小按钮
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: { readOnly: false },
+                    magicType: { type: ['line', 'bar'] },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                name: '商品',
+                nameTextStyle: {
+                    fontSize: 15
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: '销量',
+                nameTextStyle: {
+                    fontSize: 15
+                }
+            },
+            grid: {
+                left: '50%',
+                top: '15%'
+            },
+            //系列数据从 dataset 中取
+            dataset: {
+                source: [
+                    ['衬衫', 5],
+                    ['羊毛衫', 20],
+                    ['雪纺衫', 36],
+                    ['裤子', 10],
+                    ['高跟鞋', 10],
+                    ['袜子', 20]
+                ]
+            },
+            series: [{
+                type: 'pie',
+                center: ['25%', '50%'],
+                radius: '50%',
+                // 数据从 dataset 中取，encode 中的数值是 dataset.source 的维度 index （即第几列）
+                encode: { itemName: 0, value: 1 }
+            },
+            {
+                type: 'bar',
+                encode: { x: 0, y: 1 }
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>
